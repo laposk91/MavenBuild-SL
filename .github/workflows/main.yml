@@ -1,3 +1,4 @@
+
 name: CICD using Maven and tomcat
 on:
  push:  # run when there is commit to repo
@@ -7,7 +8,7 @@ jobs:
    runs-on: ubuntu-latest
    steps:
     - name: Clone the repo on ubuntu server
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
     - name: Install Java and maven on ubuntu server
       uses: actions/setup-java@v4
       with:
@@ -19,16 +20,15 @@ jobs:
     - name: Connect to Lab machine and Deploy the code on tomcat9 
       uses: cross-the-world/ssh-scp-ssh-pipelines@latest
       with:
-        host: '188.20.186.5'
-        user: 'lapo'
-        pass: Adekunle91
+        host: '13.127.232.171'
+        user: 'labuser'
+        pass: ${{secrets.LAB_PASSWORD}}
         port: 22
-        connect_timeout: 30s
+        connect_timeout: 10s
         first_ssh: |
-          sudo chmod 777  /opt/tomcat/webapps/  
+          sudo chmod 777 /var/lib/tomcat9/webapps    
         scp: |
-          './target/*war' => /opt/tomcat/webapps/ 
+          './target/*war' => /var/lib/tomcat9/webapps
         last_ssh: |
-          sudo systemctl restart tomcat
-     
-
+          sudo systemctl restart tomcat9
+          curl -l -u admin:Root123$ http://localhost:8080/job/Github_actions_Trigger/build?token=token1
