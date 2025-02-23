@@ -25,10 +25,10 @@ jobs:
         port: 22
         connect_timeout: 30s
         first_ssh: |
-          sudo chmod 777 /var/lib/tomcat9/webapps    
+          sudo chmod 777  /opt/tomcat/webapps/  
         scp: |
-          './target/*war' => /var/lib/tomcat9/webapps
+          './target/*war' => /opt/tomcat/webapps/ 
         last_ssh: |
-          sudo systemctl restart tomcat9
+          sudo systemctl restart tomcat
           curl -l -u admin:Root123$ http://localhost:8080/job/Github_actions_Trigger/build?token=token1
 
