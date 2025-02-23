@@ -25,7 +25,7 @@ jobs:
           host: 172.25.60.203
           user: laposki
           pass: Adekunle91 
-          port: 22
+          port: 20
           connect_timeout: 10s
           first_ssh: |
             sudo chmod 777 /opt/tomcat/logs/
