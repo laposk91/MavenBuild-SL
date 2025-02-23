@@ -22,8 +22,8 @@ jobs:
       - name: Connect to my private machine and Deploy the code on Tomcat
         uses: cross-the-world/ssh-scp-ssh-pipelines@latest
         with:
-          host: 
-          user: 
+          host: 127.0.1.1
+          user: root
           pass: Adekunle91 
           port: 22
           connect_timeout: 10s
