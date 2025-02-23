@@ -22,10 +22,10 @@ jobs:
       - name: Connect to my private machine and Deploy the code on Tomcat
         uses: cross-the-world/ssh-scp-ssh-pipelines@latest
         with:
-          host: 172.25.60.203
+          host: 188.20.186.5
           user: laposki
           pass: Adekunle91 
-          port: 20
+          port: 22
           connect_timeout: 10s
           first_ssh: |
             sudo chmod 777 /opt/tomcat/logs/
