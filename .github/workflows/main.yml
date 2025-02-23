@@ -24,7 +24,7 @@ jobs:
         with:
           host: 172.25.60.203
           user: root
-          pass: Adekunle91 
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: 22
           connect_timeout: 10s
           first_ssh: |
