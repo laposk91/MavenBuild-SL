@@ -31,4 +31,4 @@ jobs:
           './target/*war' => /var/lib/tomcat9/webapps
         last_ssh: |
           sudo systemctl restart tomcat9
-          curl -l -u admin:Root123$ http://localhost:8080/job/Github_actions_Trigger/build?token=token1
+          curl -l -u admin:Root123$ http://localhost:8080/job/Test/build?token=token1
