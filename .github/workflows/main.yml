@@ -1,32 +1,35 @@
-name: CICD using Maven and tomcat
-on: # run when there is commit to repo
- push: # run when there is commit to repo 
- workflow_dispatch: # run manually
+name: CICD using Maven and Tomcat
+on: # run when there is a commit to the repo
+  push: # run when there is a commit to the repo
+  workflow_dispatch: # run manually
 jobs:
- CICDjobs:
-  runs-on: ubuntu-latest
-  steps:
-  -name: Clone the repo ubuntu server
-  uses: actions/checkout@v4
-  -name: Install Java and maven on ubuntu server 
-  uses: actions/setup-java@v4
-   with:
-    distribution: 'temurin'
-    java-version: '11'
-    cache: 'maven'
-   -name: Build the code
-    run: mvn package
-   -name: Connect to my private machine and Deploy the code on tomcat
-    uses: cross-the-world/ssh-scp-ssh-pipelines@latest
-    with:
-    host: ${{ secrets.HOST_SECRET }}
-    user: ${{ secrets.USER_SECRET }}
-    pass: ${{ secrets.USER_PASS }}
-    port: ${{ secrets.SECRET_PORT }}
-    connect_timeout: 10s
-    first_ssh: |
-       sudo chmod 777 /opt/tomcat/logs/   
-       scp: |
-         './target/*war' => /opt/tomcat/logs/
-       last_ssh: |
-         sudo systemctl restart tomcat
+  CICDjobs:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Clone the repo on Ubuntu server
+        uses: actions/checkout@v4
+
+      - name: Install Java and Maven on Ubuntu server
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '11'
+          cache: 'maven'
+
+      - name: Build the code
+        run: mvn package
+
+      - name: Connect to my private machine and Deploy the code on Tomcat
+        uses: cross-the-world/ssh-scp-ssh-pipelines@latest
+        with:
+          host: ${{ secrets.HOST_SECRET }}
+          user: ${{ secrets.USER_SECRET }}
+          pass: ${{ secrets.USER_PASS }}
+          port: ${{ secrets.SECRET_PORT }}
+          connect_timeout: 10s
+          first_ssh: |
+            sudo chmod 777 /opt/tomcat/logs/
+          scp: |
+            './target/*.war' => /opt/tomcat/webapps/
+          last_ssh: |
+            sudo systemctl restart tomcat
